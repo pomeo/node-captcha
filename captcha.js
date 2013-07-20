@@ -29,7 +29,7 @@ module.exports = function(params){
         var text = ('' + Math.random()).substr(3, params.codeLength);
 
         for (i = 0; i < text.length; i++) {
-             ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, 30 * i + 20, params.fontSize);
+             ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, 30 * i + 20, params.fontSize * 1.3);
              ctx.fillText(text.charAt(i), 0, 0);
         }
         canvas.toBuffer(function(err, buf) {
