@@ -26,31 +26,19 @@ module.exports = function(params){
         ctx.strokeStyle = params.color;
         ctx.font = params.fontSize+'px sans';
 
-        for (var i = 0; i < 2; i++) {
-            ctx.moveTo(20, Math.random() * 150);
-            ctx.bezierCurveTo(80, Math.random() * 150, 160, Math.random() * 150, 230, Math.random() * 150);
-            ctx.stroke();
+        var text = ('' + Math.random()).substr(3, params.codeLength);
+
+        for (i = 0; i < text.length; i++) {
+             ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, 30 * i + 20, 100);
+             ctx.fillText(text.charAt(i), 0, 0);
         }
-
-		var text = ('' + Math.random()).substr(3, params.codeLength);
-
-		for (i = 0; i < text.length; i++) {
-			ctx.setTransform(Math.random() * 0.5 + 1, Math.random() * 0.4, Math.random() * 0.4, Math.random() * 0.5 + 1, 30 * i + 20, 100);
-			ctx.fillText(text.charAt(i), 0, 0);
-		}
-
-//	    ctx.setTransform(1, 0, 0, 1, 0, 0);
-//	    ctx.font = '25px sans';
-//	    ctx.fillStyle = "rgb(255,255,255)";
-//	    ctx.fillText(text, 70, 145);
-
-		canvas.toBuffer(function(err, buf) {
-            if(req.session)
+        canvas.toBuffer(function(err, buf) {
+             if(req.session)
                 req.session.captcha = text;
-            res.type('jpg');
-            res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-            res.header('Expires', 'Sun, 12 Jan 1986 12:00:00 GMT');
-            res.end(buf);
+             res.type('jpg');
+             res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+             res.header('Expires', 'Thu, 1 Jan 1970 00:00:00 GMT');
+             res.end(buf);
         });
     };
 };
